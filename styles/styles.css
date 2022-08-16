@@ -1,0 +1,235 @@
+@charset "utf-8";
+/*
+* CSS-Design
+* Covid-19-Data
+*/
+/* Reset * * * * * * * * */
+
+* {
+    margin: 0;
+    padding: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 100%;
+    position: relative;
+    min-height: 100%;
+
+}
+/* Layout * * * * * * * * */
+
+
+body {
+    font-family: 'Rubik';
+  
+    line-height: 1.35rem;
+    color: #ffffff;
+    background-color: rgb(0, 0, 0);
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.container {
+
+    padding-top: 2rem;
+align-items: center;
+display: flex;
+flex-direction: column;
+text-align: center;
+
+}
+
+.worldTable {
+    margin-bottom: 5rem;
+    width: 70%;
+}
+
+.countriesTable {
+    margin-bottom: 5rem;
+    width: 70%;
+}
+
+
+/* Typography * * * * * * * * */
+
+th {
+    padding-top: 2rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+
+.title {
+    color: red;
+    padding: 3rem 0rem 5rem;
+}
+
+h2 {
+    color: red;
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
+h1 {
+    font-weight: 400;
+    font-size: 3rem;
+}
+
+/* Select form * * * * * * * * */
+
+
+select {
+    margin-top: 2rem;
+    outline: none;
+    border: none;
+    padding-left: 1.5rem;
+
+}
+#selectCountry {
+height: 2rem;
+border-radius: 0.5rem;
+font-family: 'Rubik';
+font-size: 1rem;
+background-color: rgb(66, 65, 65);
+color: #ffffff;
+text-transform: uppercase;
+z-index: 5;
+position: relative;
+  }
+
+/* Animation * * * * * * * * */
+
+  
+.context {
+    width: 100%;
+    position: absolute;
+    top:50vh;
+    z-index: 2;
+}
+
+
+
+.circles{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.circles div{
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px; 
+    animation: animate 25s linear infinite;
+    bottom: -150px;
+    z-index: 2;
+}
+
+
+.circles div:nth-child(1){
+     left: 25%; 
+     width: 1rem;
+    height: 1rem;
+    animation-delay: 0s;
+}
+
+
+.circles div:nth-child(2){
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+
+.circles div:nth-child(3){
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+}
+
+.circles div:nth-child(4){
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.circles div:nth-child(5){
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+}
+
+.circles div:nth-child(6){
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+}
+
+.circles div:nth-child(7){
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+}
+
+.circles div:nth-child(8){
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+}
+
+.circles div:nth-child(9){
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+
+.circles div:nth-child(10){
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+    animation:animate 18s linear infinite ; 
+}
+
+
+
+@keyframes animate {
+
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.5;
+        border-radius: 100%;
+    }
+
+    100%{
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+
+}

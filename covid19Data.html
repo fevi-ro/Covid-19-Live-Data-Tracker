@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid-19 Data Tracker</title>
+ 
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+    <main>
+    <div class="container area">
+  
+    <h1 class="title">COVID-19 LIVE DATA TRACKER</h1>
+
+      
+        <table class="worldTable">
+     
+                <h2>ENTIRE WORLD DATA</h2>
+        
+            <tr>
+                <th>TOTAL CASES</th>
+                <th>NEW CASES</th>
+                <th>TOTAL DEATHS</th>
+                <th>PERCENTAGE DEATHS</th>
+            </tr>
+            <tr id="worldData">
+
+            </tr>
+        </table>
+        <br>
+        <br>
+       
+        <br>
+        <br>
+        <table class="countriesTable">
+     
+                <h2>DATA PER COUNTRY</h2>
+                
+<div class="select">
+                    <select name="country" id="selectCountry" onchange="countryIndividualData()">
+                        <option value="">Choose a Country</option>
+                    </select>
+                </div>
+
+            <tr>
+                <th>TOTAL CASES</th>
+                <th>NEW CASES</th>
+                <th>TOTAL DEATHS</th>
+                <th>PERCENTAGE DEATHS</th>
+            </tr>
+            <tr id="countryData">
+
+            </tr>
+        </table>
+        <ul class="circles">
+        
+            <div>  <img src="pictures/coronavirus.png" height="75px" width="75px" ></img></div>
+            <div>  <img src="pictures/coronavirus.png" height="70px" width="70px" ></img></div>
+            <div>  <img src="pictures/coronavirus.png" height="60px" width="60px" ></img></div>
+            <div>  <img src="pictures/coronavirus.png" height="50px" width="50px" ></img></div>
+            <div>  <img src="pictures/coronavirus.png" height="40px" width="40px" ></img></div>
+            <div>  <img src="pictures/coronavirus.png" height="30px" width="30px" ></img></div>
+            <div>  <img src="pictures/coronavirus.png" height="20px" width="20px" ></img></div>
+            
+            
+    </ul>
+
+
+    </div>
+
+
+      
+
+</main>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    let worldData = ''
+    let countryData = ''
+    worldInitData()
+    worldCountries()
+    function worldInitData() {
+        let url = "https://api.covid19api.com/summary"
+        $.get(url, function (worldData) {
+            percentageDeaths = (worldData.Global.TotalDeaths / worldData.Global.TotalConfirmed) * 100
+            worldData = `
+           <td>${worldData.Global.TotalConfirmed}</td>
+           <td>${worldData.Global.NewConfirmed}</td>
+           <td>${worldData.Global.TotalDeaths}</td>
+           <td>${percentageDeaths.toFixed(2)}</td>`
+            $("#worldData").html(worldData)
+        })
+    }
+    async function worldCountries() {
+        let url = "https://api.covid19api.com/countries"
+        $.get(url, function (countryData) {
+            for (let numberOfCountries = 0; numberOfCountries <= countryData.length - 1; numberOfCountries++) {
+                $("#selectCountry").append("<option value = " + countryData[numberOfCountries].Country + ">" + countryData[numberOfCountries].Country + "</option>")
+
+            }
+//set countries alphabetically 
+            let my_options = $("#selectCountry option");
+            let selectedCountry = $("#selectCountry").val();
+            my_options.sort(function (a, b) {
+                if (a.text > b.text) return 1;
+                if (a.text < b.text) return -1;
+                return 0
+            })
+
+            $("#selectCountry").empty().append(my_options);
+            $("#selectCountry").val(selectedCountry);
+        })
+    }
+
+    function countryIndividualData() {
+        let url = "https://api.covid19api.com/summary"
+        $.get(url, function (countryData) {
+
+            for (let count = 0; count <= countryData.Countries.length; count++) {
+
+                let selected = $("#selectCountry").find('option:selected').text()
+
+                if (countryData.Countries[count].Country === selected) {
+
+                    percentageDeathsCountry = (countryData.Countries[count].TotalDeaths / countryData.Countries[count].TotalConfirmed) * 100
+                    countryData = `
+           <td>${countryData.Countries[count].TotalConfirmed}</td>
+           <td>${countryData.Countries[count].NewConfirmed}</td>
+           <td>${countryData.Countries[count].TotalDeaths}</td>
+           <td>${percentageDeathsCountry.toFixed(2)}</td>`
+                    $("#countryData").html(countryData)
+                    break;
+
+
+
+                }
+
+                else console.log("foo");
+            }
+        })
+
+
+
+    }
+
+
+
+
+</script>
+
+</html>
